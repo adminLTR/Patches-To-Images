@@ -134,7 +134,11 @@ function animateCounters() {
   document.querySelectorAll("[data-count]").forEach((el) => {
     if (el.dataset.done === "1") return;
     const target = Number(el.dataset.count);
-    const format = (value) => Math.round(value).toLocaleString("es-ES");
+    const locale =
+      typeof window.ptiGetLanguage === "function"
+        ? { es: "es-ES", en: "en-US", pt: "pt-BR", it: "it-IT" }[window.ptiGetLanguage()] || "es-ES"
+        : "es-ES";
+    const format = (value) => Math.round(value).toLocaleString(locale);
     const finish = () => {
       el.textContent = format(target);
       el.dataset.done = "1";

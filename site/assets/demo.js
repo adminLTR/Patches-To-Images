@@ -14,7 +14,34 @@ const demoState = {
   modelReady: false,
   modelError: "",
   tfReady: false,
+  isRunning: false,
+  statusState: "",
+  statusKey: "",
+  statusVars: null,
+  lastMae: null,
 };
+
+function demoT(key, vars) {
+  return typeof window.ptiT === "function" ? window.ptiT(key, vars) : key;
+}
+
+function refreshDemoUi() {
+  const sample = document.getElementById("demo-sample");
+  const shuffle = document.getElementById("demo-shuffle");
+  const run = document.getElementById("demo-run");
+  if (sample) sample.textContent = demoT("demo.sample");
+  if (shuffle) shuffle.textContent = demoT("demo.shuffle");
+  if (run && !demoState.isRunning) run.textContent = demoT("demo.run");
+  const maeBox = document.getElementById("demo-mae");
+  if (maeBox && !maeBox.hidden && demoState.lastMae != null) {
+    maeBox.textContent = demoT("demo.mae", { mae: demoState.lastMae });
+  }
+  if (demoState.statusKey) {
+    setDemoStatus(demoState.statusState, demoT(demoState.statusKey, demoState.statusVars));
+  }
+}
+
+document.addEventListener("pti:language", refreshDemoUi);
 
 function setDemoStatus(state, html) {
   const box = document.getElementById("demo-status");
@@ -37,7 +64,7 @@ function loadScriptOnce(src) {
     script.async = true;
     script.dataset.demoSrc = src;
     script.onload = () => resolve();
-    script.onerror = () => reject(new Error("No se pudo cargar TensorFlow.js"));
+    script.onerror = () => reject(new Error(demoT("demo.err.tf")));
     document.head.appendChild(script);
   });
 }
@@ -178,7 +205,7 @@ function loadImageSrc(src) {
   return new Promise((resolve, reject) => {
     const image = new Image();
     image.onload = () => resolve(image);
-    image.onerror = () => reject(new Error("No se pudo leer la imagen"));
+    image.onerror = () => reject(new Error(demoT("demo.err.image")));
     image.src = src;
   });
 }
@@ -205,17 +232,17 @@ async function probeModel() {
     const json = await response.json();
     if (!json.modelTopology && !json.format && !json.weightsManifest) throw new Error("invalid");
     demoState.modelReady = true;
-    setDemoStatus(
-      "ready",
-      "Modelo TF.js encontrado. Sube una imagen y pulsa <strong>Reconstruir</strong>."
-    );
+    demoState.statusState = "ready";
+    demoState.statusKey = "demo.status.ready";
+    demoState.statusVars = null;
+    setDemoStatus("ready", demoT("demo.status.ready"));
   } catch (error) {
     demoState.modelReady = false;
     demoState.modelError = error.message;
-    setDemoStatus(
-      "missing",
-      "Falta el modelo web. Coloca el <code>.keras</code> en <code>site/model/</code> y ejecuta <code>python scripts/convert_model.py site/model/best_jigsaw_model.keras</code>. Mientras tanto ya puedes ver los parches aleatorios."
-    );
+    demoState.statusState = "missing";
+    demoState.statusKey = "demo.status.missing";
+    demoState.statusVars = null;
+    setDemoStatus("missing", demoT("demo.status.missing"));
   }
   setButtons({ shuffle: Boolean(demoState.original), run: demoState.modelReady && Boolean(demoState.original) });
 }
@@ -231,7 +258,7 @@ function pickOutputTensor(result) {
     const tensor = Object.values(result).find((item) => item instanceof tf.Tensor);
     if (tensor) return tensor;
   }
-  throw new Error("El modelo no devolvió un tensor válido");
+  throw new Error(demoT("demo.err.tensor"));
 }
 
 function disposeExecutionResult(result, keep) {
@@ -254,7 +281,7 @@ function disposeExecutionResult(result, keep) {
 
 async function ensureTf() {
   if (!window.tf) await loadScriptOnce(DEMO.tfScript);
-  if (!window.tf) throw new Error("No se pudo cargar TensorFlow.js. Recarga la página.");
+  if (!window.tf) throw new Error(demoT("demo.err.tf"));
   if (!demoState.tfReady) {
     await window.tf.setBackend("cpu");
     await window.tf.ready();
@@ -301,7 +328,8 @@ async function runModel() {
   const runBtn = document.getElementById("demo-run");
   const maeBox = document.getElementById("demo-mae");
   runBtn.disabled = true;
-  runBtn.textContent = "Reconstruyendo…";
+  demoState.isRunning = true;
+  runBtn.textContent = demoT("demo.rebuilding");
   try {
     const model = await ensureModel();
     const input = tensorFromPatches(demoState.patches);
@@ -312,20 +340,22 @@ async function runModel() {
     for (let i = 0; i < rgb.length; i += 1) max = Math.max(max, rgb[i]);
 
     if (max < 1e-4) {
-      throw new Error("La salida del modelo es toda cero. Prueba recargar o reconvertir el .keras.");
+      throw new Error(demoT("demo.err.zero"));
     }
 
     drawRgb(document.getElementById("demo-output"), rgb, DEMO.size, DEMO.size);
     const mae = meanAbsoluteError(demoState.original, rgb);
+    demoState.lastMae = mae.toFixed(5);
     maeBox.hidden = false;
-    maeBox.textContent = `MAE frente a la imagen recortada: ${mae.toFixed(5)}`;
+    maeBox.textContent = demoT("demo.mae", { mae: demoState.lastMae });
   } catch (error) {
-    setDemoStatus(
-      "error",
-      `El modelo está presente, pero la inferencia falló: <code>${error.message}</code>. Vuelve a convertir el <code>.keras</code> con el script.`
-    );
+    demoState.statusState = "error";
+    demoState.statusKey = "demo.status.inference";
+    demoState.statusVars = { msg: error.message };
+    setDemoStatus("error", demoT("demo.status.inference", { msg: error.message }));
   } finally {
-    runBtn.textContent = "Reconstruir";
+    demoState.isRunning = false;
+    runBtn.textContent = demoT("demo.run");
     setButtons({ shuffle: true, run: demoState.modelReady });
   }
 }
@@ -395,4 +425,5 @@ window.prepareDemo = async function prepareDemo() {
 
 document.addEventListener("DOMContentLoaded", () => {
   initDemoUi();
+  refreshDemoUi();
 });

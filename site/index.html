@@ -19,45 +19,56 @@
       </span>
       <span>
         <strong>Patches to Images</strong>
-        <small>Jigsaw neural reconstruction</small>
+        <small data-i18n="brand.sub">Reconstrucción neuronal tipo jigsaw</small>
       </span>
     </a>
-    <nav class="tabs" role="tablist" aria-label="Secciones del proyecto">
-      <button class="tab is-active" role="tab" aria-selected="true" data-tab="problema">Problema</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="dataset">Dataset</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="arquitectura">Arquitectura</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="modelo">Modelo</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="demo">Demo</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="colab">Colab</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="metricas">Métricas</button>
-    </nav>
+    <div class="topbar-end">
+      <label class="lang-switch">
+        <span class="lang-label" data-i18n="lang.label">Idioma</span>
+        <select id="lang-select" class="lang-select" data-i18n-aria="lang.aria" aria-label="Idioma de la página">
+          <option value="es">ES</option>
+          <option value="en">EN</option>
+          <option value="pt">PT</option>
+          <option value="it">IT</option>
+        </select>
+      </label>
+      <nav class="tabs" role="tablist" data-i18n-aria="nav.aria" aria-label="Secciones del proyecto">
+        <button class="tab is-active" role="tab" aria-selected="true" data-tab="problema" data-i18n="tab.problema">Problema</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="dataset" data-i18n="tab.dataset">Dataset</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="arquitectura" data-i18n="tab.arquitectura">Arquitectura</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="modelo" data-i18n="tab.modelo">Modelo</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="demo" data-i18n="tab.demo">Demo</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="colab" data-i18n="tab.colab">Colab</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="metricas" data-i18n="tab.metricas">Métricas</button>
+      </nav>
+    </div>
   </header>
 
   <main>
     <section class="panel is-active" id="problema" role="tabpanel">
       <div class="hero">
         <div class="hero-copy reveal">
-          <p class="eyebrow">Proyecto de visión por computador</p>
-          <h1>Reconstruir una imagen completa a partir de nueve piezas desordenadas.</h1>
-          <p class="lead">
+          <p class="eyebrow" data-i18n="hero.eyebrow">Proyecto de visión por computador</p>
+          <h1 data-i18n="hero.title">Reconstruir una imagen completa a partir de nueve piezas desordenadas.</h1>
+          <p class="lead" data-i18n-html="hero.lead">
             El modelo recibe 9 parches RGB de <strong>28×28</strong>, descolocados y con los bordes erosionados,
             y debe devolver la imagen original de <strong>96×96</strong> sin atajos geométricos ni algoritmos clásicos.
           </p>
           <div class="hero-actions">
-            <button class="btn primary" data-goto="demo">Probar la demo</button>
-            <button class="btn ghost" data-goto="colab">Ver el Colab ejecutado</button>
+            <button class="btn primary" data-goto="demo" data-i18n="hero.btnDemo">Probar la demo</button>
+            <button class="btn ghost" data-goto="colab" data-i18n="hero.btnColab">Ver el Colab ejecutado</button>
           </div>
           <dl class="hero-stats">
             <div>
-              <dt>Entrada</dt>
+              <dt data-i18n="hero.statInput">Entrada</dt>
               <dd>9 × 28×28×3</dd>
             </div>
             <div>
-              <dt>Salida</dt>
+              <dt data-i18n="hero.statOutput">Salida</dt>
               <dd>96×96×3</dd>
             </div>
             <div>
-              <dt>Métrica</dt>
+              <dt data-i18n="hero.statMetric">Métrica</dt>
               <dd>MAE</dd>
             </div>
           </dl>
@@ -65,24 +76,24 @@
 
         <div class="hero-stage reveal delay-1" aria-hidden="true">
           <div class="stage-card">
-            <div class="stage-label">Piezas desordenadas</div>
+            <div class="stage-label" data-i18n="hero.stageScrambled">Piezas desordenadas</div>
             <div class="puzzle" id="hero-puzzle">
               <img src="notebook-assets/cell_14_out_0.png" alt="" />
             </div>
           </div>
           <div class="stage-arrow">
-            <span>red neuronal</span>
+            <span data-i18n="hero.stageArrow">red neuronal</span>
           </div>
           <div class="stage-card reconstructed">
-            <div class="stage-label">Imagen reconstruida</div>
-            <img src="notebook-assets/cell_13_out_1.png" alt="Imagen objetivo de un perro reconstruida a 96×96" />
+            <div class="stage-label" data-i18n="hero.stageReconstructed">Imagen reconstruida</div>
+            <img src="notebook-assets/cell_13_out_1.png" alt="Imagen objetivo de un perro reconstruida a 96×96" data-i18n-alt="hero.altReconstructed" />
           </div>
         </div>
       </div>
 
       <div class="section-block">
-        <h2 class="section-title">Contextualización del problema</h2>
-        <p class="section-intro">
+        <h2 class="section-title" data-i18n="problema.contextTitle">Contextualización del problema</h2>
+        <p class="section-intro" data-i18n="problema.contextIntro">
           No basta con pegar las piezas. El rompecabezas es ambiguo: falta información de borde
           y el orden espacial es desconocido. La red tiene que inferir la disposición correcta
           y rellenar el contenido visual que se eliminó al recortar cada parche.
@@ -91,29 +102,29 @@
         <div class="card-grid three">
           <article class="info-card reveal">
             <span class="card-index">01</span>
-            <h3>Orden desconocido</h3>
-            <p>Las 9 piezas vienen de una grilla 3×3, pero llegan permutadas. El modelo debe descubrir qué pieza corresponde a cada posición.</p>
+            <h3 data-i18n="problema.c1.title">Orden desconocido</h3>
+            <p data-i18n="problema.c1.text">Las 9 piezas vienen de una grilla 3×3, pero llegan permutadas. El modelo debe descubrir qué pieza corresponde a cada posición.</p>
           </article>
           <article class="info-card reveal delay-1">
             <span class="card-index">02</span>
-            <h3>Bordes erosionados</h3>
-            <p>Cada celda original es 32×32, pero se recorta al centro 28×28. Se pierde el marco que permitiría encajar piezas por continuidad de borde.</p>
+            <h3 data-i18n="problema.c2.title">Bordes erosionados</h3>
+            <p data-i18n="problema.c2.text">Cada celda original es 32×32, pero se recorta al centro 28×28. Se pierde el marco que permitiría encajar piezas por continuidad de borde.</p>
           </article>
           <article class="info-card reveal delay-2">
             <span class="card-index">03</span>
-            <h3>Reconstrucción coherente</h3>
-            <p>Además de ordenar, hay que inpainting: completar huecos y producir una imagen 96×96 continua, sin artefactos de ensamblaje.</p>
+            <h3 data-i18n="problema.c3.title">Reconstrucción coherente</h3>
+            <p data-i18n="problema.c3.text">Además de ordenar, hay que inpainting: completar huecos y producir una imagen 96×96 continua, sin artefactos de ensamblaje.</p>
           </article>
         </div>
 
         <aside class="constraint-box reveal">
-          <h3>Restricciones del enunciado</h3>
+          <h3 data-i18n="problema.constraintsTitle">Restricciones del enunciado</h3>
           <ul>
-            <li>Solo redes neuronales. No se permiten componentes algorítmicos no neuronales.</li>
-            <li>Prohibido usar modelos preentrenados.</li>
-            <li>Menos de 6 millones de parámetros entrenables.</li>
-            <li>Implementación en Keras, ejecutable en Google Colab.</li>
-            <li>La calidad se mide con <strong>Mean Absolute Error (MAE)</strong> sobre el conjunto de test, reportando también la desviación estándar.</li>
+            <li data-i18n="problema.r1">Solo redes neuronales. No se permiten componentes algorítmicos no neuronales.</li>
+            <li data-i18n="problema.r2">Prohibido usar modelos preentrenados.</li>
+            <li data-i18n="problema.r3">Menos de 6 millones de parámetros entrenables.</li>
+            <li data-i18n="problema.r4">Implementación en Keras, ejecutable en Google Colab.</li>
+            <li data-i18n-html="problema.r5">La calidad se mide con <strong>Mean Absolute Error (MAE)</strong> sobre el conjunto de test, reportando también la desviación estándar.</li>
           </ul>
         </aside>
       </div>
@@ -121,9 +132,9 @@
 
     <section class="panel" id="dataset" role="tabpanel" hidden>
       <div class="section-block">
-        <p class="eyebrow">Datos</p>
-        <h2 class="section-title">Sobre el dataset STL-10</h2>
-        <p class="section-intro">
+        <p class="eyebrow" data-i18n="dataset.eyebrow">Datos</p>
+        <h2 class="section-title" data-i18n="dataset.title">Sobre el dataset STL-10</h2>
+        <p class="section-intro" data-i18n-html="dataset.intro">
           Se usa el conjunto no etiquetado de <strong>Stanford STL-10</strong>: 100.000 imágenes a color
           de resolución nativa 96×96, con 10 clases visuales. Es un recorte natural para este problema
           porque la salida del modelo coincide exactamente con el tamaño de cada imagen.
@@ -132,34 +143,34 @@
         <div class="stat-row">
           <article class="stat-card reveal">
             <strong data-count="100000">100.000</strong>
-            <span>imágenes sin etiqueta</span>
+            <span data-i18n="dataset.statImages">imágenes sin etiqueta</span>
           </article>
           <article class="stat-card reveal delay-1">
             <strong>96×96</strong>
-            <span>resolución RGB</span>
+            <span data-i18n="dataset.statRes">resolución RGB</span>
           </article>
           <article class="stat-card reveal delay-2">
             <strong>10</strong>
-            <span>clases visuales</span>
+            <span data-i18n="dataset.statClasses">clases visuales</span>
           </article>
           <article class="stat-card reveal delay-3">
             <strong>80 / 10 / 10</strong>
-            <span>train / val / test</span>
+            <span data-i18n="dataset.statSplit">train / val / test</span>
           </article>
         </div>
 
         <div class="split">
           <article class="info-card reveal">
-            <h3>Partición usada</h3>
+            <h3 data-i18n="dataset.splitTitle">Partición usada</h3>
             <ul class="plain-list">
-              <li><strong>80.000</strong> imágenes de entrenamiento</li>
-              <li><strong>10.000</strong> de validación</li>
-              <li><strong>10.000</strong> de test</li>
+              <li data-i18n-html="dataset.split1"><strong>80.000</strong> imágenes de entrenamiento</li>
+              <li data-i18n-html="dataset.split2"><strong>10.000</strong> de validación</li>
+              <li data-i18n-html="dataset.split3"><strong>10.000</strong> de test</li>
             </ul>
-            <p>El generador recorta 9 parches 32×32, recorta el centro a 28×28 y aplica una permutación aleatoria. La etiqueta es la imagen completa normalizada en [0, 1].</p>
+            <p data-i18n="dataset.splitNote">El generador recorta 9 parches 32×32, recorta el centro a 28×28 y aplica una permutación aleatoria. La etiqueta es la imagen completa normalizada en [0, 1].</p>
           </article>
           <article class="info-card reveal delay-1">
-            <h3>Clases de STL-10</h3>
+            <h3 data-i18n="dataset.classesTitle">Clases de STL-10</h3>
             <div class="chip-wrap">
               <span class="chip">airplane</span>
               <span class="chip">bird</span>
@@ -177,16 +188,16 @@
 
         <div class="gallery">
           <figure class="reveal">
-            <img src="notebook-assets/cell_9_out_1.png" alt="Ejemplo del conjunto de test: vaca en escala de grises" />
-            <figcaption>Muestra del set de test (imagen completa 96×96).</figcaption>
+            <img src="notebook-assets/cell_9_out_1.png" alt="Ejemplo del conjunto de test: vaca en escala de grises" data-i18n-alt="dataset.fig1.alt" />
+            <figcaption data-i18n="dataset.fig1.cap">Muestra del set de test (imagen completa 96×96).</figcaption>
           </figure>
           <figure class="reveal delay-1">
-            <img src="notebook-assets/cell_14_out_0.png" alt="Nueve parches desordenados de un perro" />
-            <figcaption>El mismo tipo de muestra convertida en rompecabezas: 9 parches 28×28 con huecos.</figcaption>
+            <img src="notebook-assets/cell_14_out_0.png" alt="Nueve parches desordenados de un perro" data-i18n-alt="dataset.fig2.alt" />
+            <figcaption data-i18n="dataset.fig2.cap">El mismo tipo de muestra convertida en rompecabezas: 9 parches 28×28 con huecos.</figcaption>
           </figure>
           <figure class="reveal delay-2">
-            <img src="notebook-assets/cell_13_out_1.png" alt="Imagen objetivo del perro" />
-            <figcaption>Objetivo: reconstruir la escena original a partir de esas piezas.</figcaption>
+            <img src="notebook-assets/cell_13_out_1.png" alt="Imagen objetivo del perro" data-i18n-alt="dataset.fig3.alt" />
+            <figcaption data-i18n="dataset.fig3.cap">Objetivo: reconstruir la escena original a partir de esas piezas.</figcaption>
           </figure>
         </div>
       </div>
@@ -194,9 +205,9 @@
 
     <section class="panel" id="arquitectura" role="tabpanel" hidden>
       <div class="section-block">
-        <p class="eyebrow">Diseño</p>
-        <h2 class="section-title">Arquitectura de la solución</h2>
-        <p class="section-intro">
+        <p class="eyebrow" data-i18n="arch.eyebrow">Diseño</p>
+        <h2 class="section-title" data-i18n="arch.title">Arquitectura de la solución</h2>
+        <p class="section-intro" data-i18n-html="arch.intro">
           El modelo <em>Jigsaw_Model</em> es un pipeline 100% neuronal: entiende cada parche,
           infiere una permutación válida, arma un lienzo 96×96 y completa los huecos con una U-Net residual.
         </p>
@@ -205,67 +216,67 @@
           <li class="reveal">
             <span>1</span>
             <div>
-              <h3>Entrada de parches</h3>
-              <p>Tensor <code>(B, 9, 28, 28, 3)</code>. Nueve piezas RGB desordenadas por batch.</p>
+              <h3 data-i18n="arch.s1.title">Entrada de parches</h3>
+              <p data-i18n-html="arch.s1.text">Tensor <code>(B, 9, 28, 28, 3)</code>. Nueve piezas RGB desordenadas por batch.</p>
             </div>
           </li>
           <li class="reveal delay-1">
             <span>2</span>
             <div>
-              <h3>Encoder robusto</h3>
-              <p>CNN <code>TimeDistributed</code> con convoluciones 64→128→256. Extrae un vector de 256 dimensiones por parche, sin mirar aún el contexto global.</p>
+              <h3 data-i18n="arch.s2.title">Encoder robusto</h3>
+              <p data-i18n-html="arch.s2.text">CNN <code>TimeDistributed</code> con convoluciones 64→128→256. Extrae un vector de 256 dimensiones por parche, sin mirar aún el contexto global.</p>
             </div>
           </li>
           <li class="reveal delay-2">
             <span>3</span>
             <div>
-              <h3>Transformer</h3>
-              <p>Embeddings posicionales + 2 bloques de atención multi-cabeza (8 cabezas). Modela relaciones entre piezas para decidir el orden relativo.</p>
+              <h3 data-i18n="arch.s3.title">Transformer</h3>
+              <p data-i18n="arch.s3.text">Embeddings posicionales + 2 bloques de atención multi-cabeza (8 cabezas). Modela relaciones entre piezas para decidir el orden relativo.</p>
             </div>
           </li>
           <li class="reveal">
             <span>4</span>
             <div>
-              <h3>Router Sinkhorn</h3>
-              <p>Capa personalizada que convierte logits 9×9 en una matriz doblemente estocástica. Fuerza una asignación 1 a 1, no un simple softmax independiente.</p>
+              <h3 data-i18n="arch.s4.title">Router Sinkhorn</h3>
+              <p data-i18n="arch.s4.text">Capa personalizada que convierte logits 9×9 en una matriz doblemente estocástica. Fuerza una asignación 1 a 1, no un simple softmax independiente.</p>
             </div>
           </li>
           <li class="reveal delay-1">
             <span>5</span>
             <div>
-              <h3>Reordenamiento físico</h3>
-              <p>La matriz de permutación reordena los parches originales, no solo sus embeddings. Se conserva la textura real de cada pieza.</p>
+              <h3 data-i18n="arch.s5.title">Reordenamiento físico</h3>
+              <p data-i18n="arch.s5.text">La matriz de permutación reordena los parches originales, no solo sus embeddings. Se conserva la textura real de cada pieza.</p>
             </div>
           </li>
           <li class="reveal delay-2">
             <span>6</span>
             <div>
-              <h3>Ensamblaje del lienzo</h3>
-              <p>Cada pieza se rellena a 32×32 y se coloca en una grilla 3×3. El canvas 96×96 queda con grietas: el material que se erosionó al generar el dataset.</p>
+              <h3 data-i18n="arch.s6.title">Ensamblaje del lienzo</h3>
+              <p data-i18n="arch.s6.text">Cada pieza se rellena a 32×32 y se coloca en una grilla 3×3. El canvas 96×96 queda con grietas: el material que se erosionó al generar el dataset.</p>
             </div>
           </li>
           <li class="reveal">
             <span>7</span>
             <div>
-              <h3>U-Net de inpainting</h3>
-              <p>Una U-Net profunda predice un residual sobre el canvas. La suma pasa por sigmoid para devolver píxeles en [0, 1] y una imagen continua.</p>
+              <h3 data-i18n="arch.s7.title">U-Net de inpainting</h3>
+              <p data-i18n="arch.s7.text">Una U-Net profunda predice un residual sobre el canvas. La suma pasa por sigmoid para devolver píxeles en [0, 1] y una imagen continua.</p>
             </div>
           </li>
         </ol>
 
         <div class="split">
           <article class="info-card reveal">
-            <h3>Entrenamiento</h3>
+            <h3 data-i18n="arch.trainTitle">Entrenamiento</h3>
             <ul class="plain-list">
-              <li>Optimizador <strong>AdamW</strong> (lr 3e-4, weight decay 1e-4)</li>
-              <li>Pérdida y métrica: <strong>MAE</strong></li>
-              <li>Hasta 200 épocas, batch size 8</li>
-              <li>Callbacks: backup en Drive, checkpoint del mejor val_loss y ReduceLROnPlateau</li>
+              <li data-i18n-html="arch.train1">Optimizador <strong>AdamW</strong> (lr 3e-4, weight decay 1e-4)</li>
+              <li data-i18n-html="arch.train2">Pérdida y métrica: <strong>MAE</strong></li>
+              <li data-i18n="arch.train3">Hasta 200 épocas, batch size 8</li>
+              <li data-i18n="arch.train4">Callbacks: backup en Drive, checkpoint del mejor val_loss y ReduceLROnPlateau</li>
             </ul>
           </article>
           <article class="info-card reveal delay-1">
-            <h3>Por qué Sinkhorn + U-Net</h3>
-            <p>El Transformer propone un orden; Sinkhorn lo vuelve una permutación válida. La U-Net no tiene que “inventar” el layout: solo rellena juntas y refina la textura. Esa separación mantiene el modelo por debajo de 6M de parámetros.</p>
+            <h3 data-i18n="arch.whyTitle">Por qué Sinkhorn + U-Net</h3>
+            <p data-i18n="arch.whyText">El Transformer propone un orden; Sinkhorn lo vuelve una permutación válida. La U-Net no tiene que “inventar” el layout: solo rellena juntas y refina la textura. Esa separación mantiene el modelo por debajo de 6M de parámetros.</p>
           </article>
         </div>
       </div>
@@ -273,9 +284,9 @@
 
     <section class="panel" id="modelo" role="tabpanel" hidden>
       <div class="section-block">
-        <p class="eyebrow">Pesos entrenados</p>
-        <h2 class="section-title">Enlace al modelo</h2>
-        <p class="section-intro">
+        <p class="eyebrow" data-i18n="model.eyebrow">Pesos entrenados</p>
+        <h2 class="section-title" data-i18n="model.title">Enlace al modelo</h2>
+        <p class="section-intro" data-i18n-html="model.intro">
           Los pesos se publican como un archivo <code>.keras</code> descargable con <code>gdown</code>,
           tal como exige el enunciado. En el Colab se cargan con <code>load_model(..., safe_mode=False)</code>
           para registrar la capa personalizada <code>SinkhornRouting</code>.
@@ -284,25 +295,25 @@
         <div class="model-banner reveal">
           <div>
             <p class="eyebrow light">best_jigsaw_model.keras</p>
-            <h3>Modelo entrenado listo para cargar</h3>
-            <p>Archivo de 60.2 MB. En el notebook se descargó correctamente y se cargó sin errores.</p>
+            <h3 data-i18n="model.bannerTitle">Modelo entrenado listo para cargar</h3>
+            <p data-i18n="model.bannerText">Archivo de 60.2 MB. En el notebook se descargó correctamente y se cargó sin errores.</p>
             <div class="hero-actions">
-              <a class="btn primary" href="https://drive.google.com/file/d/15FY3GuB5i2VcZCbnQ9P3bzsFND6lx9Vi/view" target="_blank" rel="noopener">Abrir en Google Drive</a>
-              <a class="btn ghost" href="https://drive.google.com/uc?id=15FY3GuB5i2VcZCbnQ9P3bzsFND6lx9Vi" target="_blank" rel="noopener">Descarga directa (gdown)</a>
-              <button class="btn ghost" type="button" data-goto="demo">Usar en la demo</button>
+              <a class="btn primary" href="https://drive.google.com/file/d/15FY3GuB5i2VcZCbnQ9P3bzsFND6lx9Vi/view" target="_blank" rel="noopener" data-i18n="model.btnDrive">Abrir en Google Drive</a>
+              <a class="btn ghost" href="https://drive.google.com/uc?id=15FY3GuB5i2VcZCbnQ9P3bzsFND6lx9Vi" target="_blank" rel="noopener" data-i18n="model.btnGdown">Descarga directa (gdown)</a>
+              <button class="btn ghost" type="button" data-goto="demo" data-i18n="model.btnDemo">Usar en la demo</button>
             </div>
           </div>
           <dl class="mini-stats">
             <div>
-              <dt>Parámetros totales</dt>
+              <dt data-i18n="model.statTotal">Parámetros totales</dt>
               <dd>4.973.708</dd>
             </div>
             <div>
-              <dt>Entrenables</dt>
+              <dt data-i18n="model.statTrain">Entrenables</dt>
               <dd>4.966.412</dd>
             </div>
             <div>
-              <dt>Límite</dt>
+              <dt data-i18n="model.statLimit">Límite</dt>
               <dd>&lt; 6.000.000</dd>
             </div>
           </dl>
@@ -320,16 +331,16 @@ jigsaw_model = load_model("best_jigsaw_model.keras", safe_mode=False)</code></pr
 
     <section class="panel" id="demo" role="tabpanel" hidden>
       <div class="section-block">
-        <p class="eyebrow">Prueba interactiva</p>
-        <h2 class="section-title">Demo</h2>
-        <p class="section-intro">
+        <p class="eyebrow" data-i18n="demo.eyebrow">Prueba interactiva</p>
+        <h2 class="section-title" data-i18n="demo.title">Demo</h2>
+        <p class="section-intro" data-i18n-html="demo.intro">
           Sube una foto. La página la recorta a <strong>96×96</strong>, genera 9 parches <strong>28×28</strong>
           desordenados y reconstruye la imagen.
         </p>
 
         <label class="dropzone" id="demo-dropzone" for="demo-file">
           <input id="demo-file" type="file" accept="image/*" hidden />
-          <strong>Suelta una imagen o haz clic para elegirla</strong>
+          <strong data-i18n="demo.dropzone">Suelta una imagen o haz clic para elegirla</strong>
         </label>
 
         <div class="demo-actions">
@@ -341,15 +352,15 @@ jigsaw_model = load_model("best_jigsaw_model.keras", safe_mode=False)</code></pr
 
         <div class="demo-grid">
           <figure>
-            <figcaption>1. Imagen 96×96</figcaption>
+            <figcaption data-i18n="demo.fig1">1. Imagen 96×96</figcaption>
             <canvas id="demo-original" width="96" height="96"></canvas>
           </figure>
           <figure>
-            <figcaption>2. Parches aleatorios</figcaption>
+            <figcaption data-i18n="demo.fig2">2. Parches aleatorios</figcaption>
             <canvas id="demo-patches" width="96" height="96"></canvas>
           </figure>
           <figure>
-            <figcaption>3. Reconstrucción</figcaption>
+            <figcaption data-i18n="demo.fig3">3. Reconstrucción</figcaption>
             <canvas id="demo-output" width="96" height="96"></canvas>
           </figure>
         </div>
@@ -359,14 +370,14 @@ jigsaw_model = load_model("best_jigsaw_model.keras", safe_mode=False)</code></pr
 
     <section class="panel" id="colab" role="tabpanel" hidden>
       <div class="section-block colab-wrap">
-        <p class="eyebrow">Solución completa</p>
-        <h2 class="section-title">Colab de la solución</h2>
-        <p class="section-intro">
+        <p class="eyebrow" data-i18n="colab.eyebrow">Solución completa</p>
+        <h2 class="section-title" data-i18n="colab.title">Colab de la solución</h2>
+        <p class="section-intro" data-i18n="colab.intro">
           Abajo ves las salidas reales del notebook del repositorio. Descárgalo para abrirlo en Google Colab
           o ejecutarlo en local con el mismo entorno que en el proyecto.
         </p>
         <div class="hero-actions">
-          <a class="btn primary" href="patches_to_image_spec.ipynb" download="patches_to_image_spec.ipynb">Descargar notebook (.ipynb)</a>
+          <a class="btn primary" href="patches_to_image_spec.ipynb" download="patches_to_image_spec.ipynb" data-i18n="colab.download">Descargar notebook (.ipynb)</a>
         </div>
 
         <div class="colab-shell">
@@ -376,34 +387,34 @@ jigsaw_model = load_model("best_jigsaw_model.keras", safe_mode=False)</code></pr
               <span class="colab-badge">Colab</span>
               patches_to_image_spec.ipynb
             </div>
-            <div class="colab-meta">Python 3 · GPU A100 · 31 celdas</div>
+            <div class="colab-meta" data-i18n="colab.meta">Python 3 · GPU A100 · 31 celdas</div>
           </div>
-          <div id="notebook-root" class="notebook"></div>
+          <div id="notebook-root" class="notebook" data-i18n-skip></div>
         </div>
       </div>
     </section>
 
     <section class="panel" id="metricas" role="tabpanel" hidden>
       <div class="section-block">
-        <p class="eyebrow">Resultados</p>
-        <h2 class="section-title">Métricas obtenidas</h2>
-        <p class="section-intro">
+        <p class="eyebrow" data-i18n="metrics.eyebrow">Resultados</p>
+        <h2 class="section-title" data-i18n="metrics.title">Métricas obtenidas</h2>
+        <p class="section-intro" data-i18n="metrics.intro">
           La métrica oficial es MAE sobre el test set, con su desviación estándar.
           El baseline ingenuo —repetir el parche medio y reescalar— sirve de referencia.
         </p>
 
         <div class="metrics-compare">
           <article class="metric-card baseline reveal">
-            <p>Baseline · parche medio</p>
+            <p data-i18n="metrics.baseline">Baseline · parche medio</p>
             <strong>0.18264</strong>
             <span>MAE ± 0.00100</span>
           </article>
           <div class="metric-delta reveal delay-1">
             <span>×3.8</span>
-            <small>menor error</small>
+            <small data-i18n="metrics.delta">menor error</small>
           </div>
           <article class="metric-card model reveal delay-2">
-            <p>Jigsaw_Model · test</p>
+            <p data-i18n="metrics.model">Jigsaw_Model · test</p>
             <strong>0.04853</strong>
             <span>MAE ± 0.04650</span>
           </article>
@@ -411,31 +422,32 @@ jigsaw_model = load_model("best_jigsaw_model.keras", safe_mode=False)</code></pr
 
         <div class="card-grid three">
           <article class="info-card reveal">
-            <h3>Validación</h3>
-            <p>El mejor <code>val_loss</code> guardado por checkpoint fue <strong>0.04751</strong>. En las últimas épocas el MAE de entrenamiento se estabilizó cerca de 0.0438.</p>
+            <h3 data-i18n="metrics.v1.title">Validación</h3>
+            <p data-i18n-html="metrics.v1.text">El mejor <code>val_loss</code> guardado por checkpoint fue <strong>0.04751</strong>. En las últimas épocas el MAE de entrenamiento se estabilizó cerca de 0.0438.</p>
           </article>
           <article class="info-card reveal delay-1">
-            <h3>Capacidad</h3>
-            <p><strong>4.97M</strong> parámetros totales, <strong>4.97M</strong> entrenables. Queda ~1M por debajo del tope de 6 millones.</p>
+            <h3 data-i18n="metrics.v2.title">Capacidad</h3>
+            <p data-i18n-html="metrics.v2.text"><strong>4.97M</strong> parámetros totales, <strong>4.97M</strong> entrenables. Queda ~1M por debajo del tope de 6 millones.</p>
           </article>
           <article class="info-card reveal delay-2">
-            <h3>Calidad visual</h3>
-            <p>En las muestras de test, el modelo recoloca las piezas y rellena juntas. El error residual se concentra en texturas finas, no en el layout.</p>
+            <h3 data-i18n="metrics.v3.title">Calidad visual</h3>
+            <p data-i18n="metrics.v3.text">En las muestras de test, el modelo recoloca las piezas y rellena juntas. El error residual se concentra en texturas finas, no en el layout.</p>
           </article>
         </div>
 
         <figure class="result-figure reveal">
-          <img src="notebook-assets/cell_30_out_1.png" alt="Comparación de parches, predicción y objetivo para tres muestras de test" />
-          <figcaption>Ejecución real del notebook: parches de entrada, predicción del modelo y objetivo, para tres muestras del test set.</figcaption>
+          <img src="notebook-assets/cell_30_out_1.png" alt="Comparación de parches, predicción y objetivo para tres muestras de test" data-i18n-alt="metrics.fig.alt" />
+          <figcaption data-i18n="metrics.fig.cap">Ejecución real del notebook: parches de entrada, predicción del modelo y objetivo, para tres muestras del test set.</figcaption>
         </figure>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>Patches to Images · reconstrucción neuronal de rompecabezas sobre STL-10 · Keras / TensorFlow</p>
+    <p data-i18n="footer.text">Patches to Images · reconstrucción neuronal de rompecabezas sobre STL-10 · Keras / TensorFlow</p>
   </footer>
 
+  <script src="assets/i18n.js"></script>
   <script src="assets/vendor/highlight.min.js"></script>
   <script src="assets/vendor/tf.min.js"></script>
   <script src="assets/notebook-data.js"></script>
